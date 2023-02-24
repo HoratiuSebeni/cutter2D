@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import UserDetails
+from django.conf import settings
 
 def start(request):
     return render(request, 'startPage.html')
