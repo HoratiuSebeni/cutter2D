@@ -1,0 +1,65 @@
+{% extends 'main.html' %}
+
+{% block homeButton %} 
+    <a id="logo" href="/">CutterOptimizer</a>
+{% endblock %}
+
+{% block userButtons %}
+    <button type="button" class="btn btn-outline-info btn-sm" onclick="location.href='login'">Login</button>
+{% endblock %}
+
+{% block navBar %}
+{% endblock %}
+
+{% block content %}
+    <div class="card text-center" style="width: 50%; margin: 0 auto; float: none;">
+        <h3 class="card-header">Register new account</h3>
+        <div class="card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label for="nameRegister">Name: </label>
+                <input type="text" name="nameRegister" placeholder="Name" size="25" minlength="1" required>
+                <br>
+                <label for="middleNameRegister">Middle name: </label>
+                <input type="text" name="middleNameRegister" placeholder="Middle name" size="25" minlength="1" required>
+                <br>
+                <label for="emailRegister">Email: </label>
+                <input type="email" name="emailRegister" placeholder="email@example.com" size="25" minlength="3" required>
+                <br>
+                <label for="passwordRegister">Password (6 characters minimum): </label>
+                <input type="password" name="passwordRegister" placeholder="Enter password" size="25" minlength="6" required>
+                <br>
+                <label for="countryRegister">Country: </label>
+                <input type="text" name="countryRegister" placeholder="Enter country" size="25" minlength="1" required>
+                <br>
+                <label for="cityRegister">City: </label>
+                <input type="text" name="cityRegister" placeholder="Enter city" size="25" minlength="1" required>
+                <br>
+                <label for="adressRegister">Adress: </label>
+                <input type="text" name="adressRegister" placeholder="Enter adress" size="25" minlength="1" required>
+                <br>
+                <label for="phoneRegister">Phone: </label>
+                <input type="tel" name="phoneRegister" placeholder="Enter phone number" size="25" minlength="1" required>
+                <br>
+                <label for="companyRegister">Company: </label>
+                <input type="text" name="companyRegister" placeholder="Enter company name" size="25" minlength="1" required>
+                <br>
+                <label for="accountType">Account type: </label>
+                <select id="accountType" name="accountType">
+                    <option value="carpenter">Carpenter</option>
+                    <option value="factory">Factory</option>
+                </select>
+                <br>
+                <br>
+                <input type="submit" class="btn btn-primary btn-sm" value="Register">
+            </form>
+        </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    {{ message}}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

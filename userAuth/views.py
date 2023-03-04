@@ -4,10 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import UserDetails
-from django.conf import settings
+
 
 def start(request):
-    return render(request, 'startPage.html')
+    return render(request, 'start.html')
 
 def loginPage(request):
     if request.method == 'POST':
@@ -25,7 +25,7 @@ def loginPage(request):
         except:
             messages.error(request, 'Email or password inccorect')
             
-    return render(request, 'userAuth/loginPage.html')
+    return render(request, 'userAuth/login.html')
 
 def logoutPage(request):
     logout(request)
@@ -45,8 +45,8 @@ def registerPage(request):
             return redirect (homePage)
         except:
             messages.error(request, 'Can not register the new user. The user maybe already exist')
-    return render(request, 'userAuth/registerPage.html')
+    return render(request, 'userAuth/register.html')
 
 @login_required(login_url=loginPage)
 def homePage(request):
-    return render(request, 'userAuth/homePage.html')
+    return render(request, 'userAuth/home.html')

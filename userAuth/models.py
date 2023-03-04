@@ -9,6 +9,10 @@ class UserDetails(models.Model):
     city = models.TextField()
     adress = models.TextField()
     phone = models.IntegerField()
-    company = models.TextField()
-    accountType = models.TextField()
-    accountPermisions = models.TextField(default='admin')
+    company = models.TextField(null=False, blank=False)
+    accountType = models.CharField(max_length=20, null=False, blank=False)
+    accountPermisions = models.CharField(max_length=20, default='admin')
+
+    def __str__ (self):
+        return self.user.email
+

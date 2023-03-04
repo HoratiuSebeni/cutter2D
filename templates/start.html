@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block homeButton %}
+  <a id="logo" href="/">CutterOptimizer</a>
+{% endblock %}
+
+{% block userButtons %}
+  <button type="button" class="btn btn-outline-info btn-sm" onclick="location.href='login'">Login</button>
+  <button type="button" class="btn btn-outline-info btn-sm" onclick="location.href='register'">Register</button>
+{% endblock %}
+
+{% block navBar %}
+  <div class="card-head">
+    <div class="btn-group" role="goup" style="width:100%;">
+      <button type="button" class="btn btn-outline-secondary" href="">Why WTP Cutter</button>
+      <button type="button" class="btn btn-outline-secondary">Services</button>
+      <button type="button" class="btn btn-outline-secondary">Parteners</button>
+      <button type="button" class="btn btn-outline-secondary">Contact</button>
+    </div>
+  </div>
+{% endblock %}

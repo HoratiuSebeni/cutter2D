@@ -1,0 +1,31 @@
+{% extends 'userAuth/home.html' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h3>Insert new Stock</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label for="colorCode">Insert the color code</label>
+                <input type="text" name="colorCode" size="25" minlength="1" required>
+                <br>
+                <label for="noPieces">Insert number of pieces</label>
+                <input type="number" name="noPieces" size="10" minlength="1" required>
+                <br>
+                <label for="price">Insert the price/piece (RON)</label>
+                <input type="number" name="price" size="10" minlength="1">
+                <br>
+                <input type="submit" class="btn btn-primary btn-sm" value="Add">
+            </form>
+        </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    {{ message}}
+                {% endfor %}
+            </ul>
+    {% endif %}
+    </div>
+{% endblock %}
