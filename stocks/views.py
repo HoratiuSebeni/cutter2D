@@ -1,42 +1,41 @@
 from django.shortcuts import render, redirect
-from .models import StockBoard, Board
-from userAuth.models import UserDetails
+from .models import StockBoard, Board, StockEdge, Edge
 from django.contrib import messages
-from django.http import HttpResponse
 from django.db.models import F
 # Create your views here.
 
-def newStock(request):
+def newStockBoard(request):
     user = request.user
     if request.method == 'POST':
         try:
-            Board.objects.get(colorCode=request.POST.get('colorCode')).colorCode
-            if StockBoard.objects.filter(companyEmail=user, colorCode=Board.objects.get(colorCode=request.POST.get('colorCode'))):
-                updateStock(request)
+            id = Board.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), material=request.POST.get('material')).get()
+            if StockBoard.objects.filter(companyEmail=user, idBoard=id):
+                updateStockBoard(request)
             else:
-                StockBoard.objects.create(companyEmail=user, colorCode=Board.objects.get(colorCode=request.POST.get('colorCode')), noPieces=request.POST.get('noPieces'), price=request.POST.get('price'))
+                StockBoard.objects.create(companyEmail=user, idBoard=id, noPieces=request.POST.get('noPieces'), price=request.POST.get('price'))
                 messages.error(request, 'The item was added succesfuly!')
-                return redirect(newStock)
+                return redirect(newStockBoard)
         except:
-            messages.error(request, 'Something went wrong. Maybe the item you try to add does not exist in the stock. Please try to add it first in the stock table!')
+            messages.error(request, 'Something went wrong. Maybe the item you try to add does not exist in the standard boards list. Please try to add it first in the boards list and then ty again!')
 
-    return render(request, 'stocks/newStock.html')
+    return render(request, 'stocks/newStockBoard.html')
 
-def updateStock(request):
+def updateStockBoard(request):
     user = request.user
     if request.method == 'POST':
         try:
-            StockBoard.objects.filter(companyEmail=user, colorCode=Board.objects.get(colorCode=request.POST.get('colorCode'))).update(
+            id = Board.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), material=request.POST.get('material')).get()
+            StockBoard.objects.filter(companyEmail=user, idBoard=id).update(
                 noPieces = F('noPieces') + request.POST.get('noPieces')
             )
             if request.POST.get('price'):
-                StockBoard.objects.filter(companyEmail=user, colorCode=Board.objects.get(colorCode=request.POST.get('colorCode'))).update(price=request.POST.get('price'))
+                StockBoard.objects.filter(companyEmail=user, idBoard=id).update(price=request.POST.get('price'))
             
             messages.error(request, 'The stock was updated succesfuly!')
         except:
             messages.error(request, 'Someting went wrong. The item was not updated! Please try again!')
         
-    return render(request, 'stocks/newStock.html')
+    return render(request, 'stocks/newStockBoard.html')
 
 def newBoard(request):
     user = request.user
@@ -48,3 +47,49 @@ def newBoard(request):
             messages.error(request, 'The board you try to add to de list already exist. Try to add it to your personal stock or update your stock!')
 
     return render(request, 'stocks/newBoard.html')
+
+
+def newStockEdge(request):
+    user = request.user
+    if request.method == 'POST':
+        try:
+            id = Edge.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), length=request.POST.get('length'), width=request.POST.get('width')).get()
+            if StockEdge.objects.filter(companyEmail=user, idEdge=id):
+                updateStockEdge(request)
+            else:
+                StockEdge.objects.create(companyEmail=user, idEdge=id, noMeters=request.POST.get('noMeters'), price=request.POST.get('price'))
+                messages.error(request, 'The item was added succesfuly!')
+                return redirect(newStockEdge)
+        except:
+            messages.error(request, 'Something went wrong. Maybe the item you try to add does not exist in the standard edge list. Please try to add it first in the egde list and then ty again!')
+
+    return render(request, 'stocks/newStockEdge.html')
+
+def updateStockEdge(request):
+    user = request.user
+    if request.method == 'POST':
+        try:
+            id = Edge.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), length=request.POST.get('length'), width=request.POST.get('width')).get()
+            StockEdge.objects.filter(companyEmail=user, idEdge=id).update(
+                noMeters = F('noMeters') + request.POST.get('noMeters')
+            )
+            if request.POST.get('price'):
+                StockEdge.objects.filter(companyEmail=user, idEdge=id).update(price=request.POST.get('price'))
+            
+            messages.error(request, 'The stock was updated succesfuly!')
+        except:
+            messages.error(request, 'Someting went wrong. The item was not updated! Please try again!')
+        
+    return render(request, 'stocks/newStockEdge.html')
+
+def newEdge(request):
+    user = request.user
+    if request.method == 'POST':
+        try:
+            Edge.objects.create(colorCode=request.POST.get('colorCode'), colorName=request.POST.get('colorName'), brand=request.POST.get('brand'), length=request.POST.get('length'), width=request.POST.get('width'), photo=request.POST.get('photo'))
+            messages.error(request, 'You added successfuly a new edge to the database! Congratulations!')
+        except:
+            messages.error(request, 'The egde you try to add to de list already exist. Try to add it to your personal stock or update your stock!')
+
+    return render(request, 'stocks/newEdge.html')
+

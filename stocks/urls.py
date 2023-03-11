@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
-from userAuth.views import homePage
 
 urlpatterns = [
-    path('newStock', views.newStock, name='newStock'),
+    path('newStockBoard', views.newStockBoard, name='newStockBoard'),
     path('newBoard', views.newBoard, name='newBoard'),
+    path('newStockEdge', views.newStockEdge, name='newStockEdge'),
+    path('newEdge', views.newEdge, name='newEdge'),
 ]

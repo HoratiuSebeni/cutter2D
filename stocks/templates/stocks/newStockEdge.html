@@ -3,7 +3,7 @@
 {% block content %}
     <div class="card">
         <div class="card-header">
-            <h3>Insert new Stock</h3>
+            <h3>Insert new Stock Edge</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="">
@@ -11,10 +11,19 @@
                 <label for="colorCode">Insert the color code</label>
                 <input type="text" name="colorCode" size="25" minlength="1" required>
                 <br>
-                <label for="noPieces">Insert number of pieces</label>
-                <input type="number" name="noPieces" size="10" minlength="1" required>
+                <label for="brand">Insert the manufacter</label>
+                <input type="text" name="brand" size="25" minlength="1" required>
                 <br>
-                <label for="price">Insert the price/piece (RON)</label>
+                <label for="length">Insert length (mm)</label>
+                <input type="number" name="length" size="10" minlength="1" required>
+                <br>
+                <label for="width">Insert width (mm)</label>
+                <input type="number" name="width" size="10" minlength="1" required>
+                <br>
+                <label for="noMeters">Insert number of meters</label>
+                <input type="number" name="noMeters" size="10" minlength="1" required>
+                <br>
+                <label for="price">Insert the price/meters (RON)</label>
                 <input type="number" name="price" size="10" minlength="1">
                 <br>
                 <input type="submit" class="btn btn-primary btn-sm" value="Add">
