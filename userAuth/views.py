@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import UserDetails
+from .models import Company
 
 
 def start(request):
@@ -40,7 +40,7 @@ def registerPage(request):
         try: 
             user = User.objects.create_user(username, email, password)
             user.save()
-            UserDetails.objects.create(user=user, name=request.POST.get('nameRegister'), middleName=request.POST.get('middleNameRegister'), country=request.POST.get('countryRegister'), city=request.POST.get('cityRegister'), adress=request.POST.get('adressRegister'), phone=request.POST.get('phoneRegister'), company=request.POST.get('companyRegister'), accountType=request.POST.get('accountType'))
+            Company.objects.create(user=user, country=request.POST.get('countryRegister'), city=request.POST.get('cityRegister'), adress=request.POST.get('adressRegister'), phone=request.POST.get('phoneRegister'), company=request.POST.get('companyRegister'), companyType=request.POST.get('companyType'))
             login(request, user)
             return redirect (homePage)
         except:

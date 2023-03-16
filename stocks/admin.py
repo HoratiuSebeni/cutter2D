@@ -6,13 +6,13 @@ class BoardAdmin(admin.ModelAdmin):
     list_display = ('id', 'brand', 'material', 'colorCode')
 
 class StockBoardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'companyEmail', 'idBoard', 'noPieces')
+    list_display = ('id', 'companyName', 'idBoard', 'noPieces')
 
 class EdgeAdmin(admin.ModelAdmin):
     list_display = ('id', 'brand', 'colorCode', 'length', 'width')
 
 class StockEdgeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'companyEmail', 'idEdge', 'noMeters')
+    list_display = ('id', 'companyName', 'idEdge', 'noMeters')
 
 admin.site.register(Board, BoardAdmin)
 admin.site.register(StockBoard, StockBoardAdmin)

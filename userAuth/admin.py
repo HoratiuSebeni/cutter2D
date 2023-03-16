@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import UserDetails, ChildUser
+from .models import Company, CompanyEmployer
 
-class UserDetailsAdmin(admin.ModelAdmin):
-    list_display = ('user', 'company', 'accountType', 'accountPermisions')
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ('user', 'company', 'companyType', 'accountPermisions')
 
-class ChildUserAdmin(admin.ModelAdmin):
+class CompanyEmployerAdmin(admin.ModelAdmin):
     list_display = ('user', 'company', 'accountPermisions')
 
-admin.site.register(UserDetails, UserDetailsAdmin)
-admin.site.register(ChildUser, ChildUserAdmin)
+admin.site.register(Company, CompanyAdmin)
+admin.site.register(CompanyEmployer, CompanyEmployerAdmin)

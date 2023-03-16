@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from userAuth.models import CompanyEmployer
 
 # Create your models here.
 
@@ -13,6 +13,7 @@ class Board(models.Model):
     dimensionLength = models.IntegerField(default=2070)
     dimensionWidth = models.IntegerField(default=18)
     photo = models.ImageField(null=True, blank=True)
+    author = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return str(self.id)
@@ -22,14 +23,15 @@ class Board(models.Model):
         ordering = ['id', 'brand', 'material', 'colorCode']
 
 class StockBoard(models.Model):
-    companyEmail = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    companyName = models.ForeignKey(CompanyEmployer, on_delete=models.CASCADE)
     idBoard = models.ForeignKey(Board, on_delete=models.CASCADE)
     noPieces = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
 
     class Meta:
-        unique_together = ('companyEmail', 'idBoard')
-        ordering = ['companyEmail', 'idBoard']
+        unique_together = ('companyName', 'idBoard')
+        ordering = ['id', 'companyName', 'idBoard']
 
 
 class Edge(models.Model):
@@ -40,6 +42,7 @@ class Edge(models.Model):
     width = models.IntegerField(null=False, blank=False)
     colorName = models.TextField()
     photo = models.ImageField(null=True, blank=True)
+    author = models.TextField(null=False, blank=False)
 
     def __str__(self):
         return str(self.id)
@@ -49,11 +52,12 @@ class Edge(models.Model):
         ordering = ['id', 'colorCode', 'length', 'width']
 
 class StockEdge(models.Model):
-    companyEmail = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    companyName = models.ForeignKey(CompanyEmployer, on_delete=models.CASCADE)
     idEdge = models.ForeignKey(Edge, on_delete=models.CASCADE)
     noMeters = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
 
     class Meta:
-        unique_together = ('companyEmail', 'idEdge')
-        ordering = ['companyEmail', 'idEdge']
+        unique_together = ('companyName', 'idEdge')
+        ordering = ['id', 'companyName', 'idEdge']
