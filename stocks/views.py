@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from .models import StockBoard, Board, StockEdge, Edge
 from django.contrib import messages
 from django.db.models import F
-from userAuth.models import CompanyEmployer
+from userAuth.models import Company, CompanyEmployer
 # Create your views here.
 
 def newStockBoard(request):
     user = request.user
-    companyName = CompanyEmployer.objects.get(user=user)
     if request.method == 'POST':
+        userCompany = CompanyEmployer.objects.get(user=user).company
+        companyName = Company.objects.get(company=userCompany)
         try:
             id = Board.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), material=request.POST.get('material')).get()
             if StockBoard.objects.filter(companyName=companyName, idBoard=id):
@@ -24,8 +25,9 @@ def newStockBoard(request):
 
 def updateStockBoard(request):
     user = request.user
-    companyName = CompanyEmployer.objects.get(user=user)
     if request.method == 'POST':
+        userCompany = CompanyEmployer.objects.get(user=user).company
+        companyName = Company.objects.get(company=userCompany)
         try:
             id = Board.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), material=request.POST.get('material')).get()
             StockBoard.objects.filter(companyName=companyName, idBoard=id).update(
@@ -42,8 +44,9 @@ def updateStockBoard(request):
 
 def newBoard(request):
     user = request.user
-    companyName = CompanyEmployer.objects.get(user=user)
     if request.method == 'POST':
+        userCompany = CompanyEmployer.objects.get(user=user).company
+        companyName = Company.objects.get(company=userCompany)
         try:
             Board.objects.create(colorCode=request.POST.get('colorCode'), colorName=request.POST.get('colorName'), brand=request.POST.get('brand'), material=request.POST.get('material'), dimensionHeight=request.POST.get('height'), dimensionLength=request.POST.get('length'), dimensionWidth=request.POST.get('width'), photo=request.POST.get('photo'), author=companyName)
             messages.error(request, 'You added successfuly a new board to the database! Congratulations!')
@@ -54,8 +57,9 @@ def newBoard(request):
 
 def newStockEdge(request):
     user = request.user
-    companyName = CompanyEmployer.objects.get(user=user)
     if request.method == 'POST':
+        userCompany = CompanyEmployer.objects.get(user=user).company
+        companyName = Company.objects.get(company=userCompany)
         try:
             id = Edge.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), length=request.POST.get('length'), width=request.POST.get('width')).get()
             if StockEdge.objects.filter(companyName=companyName, idEdge=id):
@@ -71,8 +75,9 @@ def newStockEdge(request):
 
 def updateStockEdge(request):
     user = request.user
-    companyName = CompanyEmployer.objects.get(user=user)
     if request.method == 'POST':
+        userCompany = CompanyEmployer.objects.get(user=user).company
+        companyName = Company.objects.get(company=userCompany)
         try:
             id = Edge.objects.filter(colorCode=request.POST.get('colorCode'), brand=request.POST.get('brand'), length=request.POST.get('length'), width=request.POST.get('width')).get()
             StockEdge.objects.filter(companyName=companyName, idEdge=id).update(
@@ -89,8 +94,9 @@ def updateStockEdge(request):
 
 def newEdge(request):
     user = request.user
-    companyName = CompanyEmployer.objects.get(user=user)
     if request.method == 'POST':
+        userCompany = CompanyEmployer.objects.get(user=user).company
+        companyName = Company.objects.get(company=userCompany)
         try:
             Edge.objects.create(colorCode=request.POST.get('colorCode'), colorName=request.POST.get('colorName'), brand=request.POST.get('brand'), length=request.POST.get('length'), width=request.POST.get('width'), photo=request.POST.get('photo'), author=companyName)
             messages.error(request, 'You added successfuly a new edge to the database! Congratulations!')

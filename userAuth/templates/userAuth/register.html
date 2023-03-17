@@ -17,12 +17,6 @@
         <div class="card-body">
             <form method="POST" action="">
                 {% csrf_token %}
-                <label for="nameRegister">Name: </label>
-                <input type="text" name="nameRegister" placeholder="Name" size="25" minlength="1" required>
-                <br>
-                <label for="middleNameRegister">Middle name: </label>
-                <input type="text" name="middleNameRegister" placeholder="Middle name" size="25" minlength="1" required>
-                <br>
                 <label for="emailRegister">Email: </label>
                 <input type="email" name="emailRegister" placeholder="email@example.com" size="25" minlength="3" required>
                 <br>

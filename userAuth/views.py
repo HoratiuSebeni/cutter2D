@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Company
+from .models import Company, CompanyEmployer
 
 
 def start(request):
@@ -40,11 +40,12 @@ def registerPage(request):
         try: 
             user = User.objects.create_user(username, email, password)
             user.save()
-            Company.objects.create(user=user, country=request.POST.get('countryRegister'), city=request.POST.get('cityRegister'), adress=request.POST.get('adressRegister'), phone=request.POST.get('phoneRegister'), company=request.POST.get('companyRegister'), companyType=request.POST.get('companyType'))
+            Company.objects.create(company=request.POST.get('companyRegister'), country=request.POST.get('countryRegister'), city=request.POST.get('cityRegister'), adress=request.POST.get('adressRegister'), phone=request.POST.get('phoneRegister'), companyType=request.POST.get('companyType'))
+            CompanyEmployer.objects.create(user=user, company=Company.objects.get(company=request.POST.get('companyRegister')))
             login(request, user)
             return redirect (homePage)
         except:
-            messages.error(request, 'Can not register the new user. The user maybe already exist')
+            messages.error(request, 'Can not register the new company. The company maybe already exist')
     return render(request, 'userAuth/register.html')
 
 @login_required(login_url=loginPage)

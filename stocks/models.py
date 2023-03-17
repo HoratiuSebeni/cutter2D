@@ -1,5 +1,5 @@
 from django.db import models
-from userAuth.models import CompanyEmployer
+from userAuth.models import Company
 
 # Create your models here.
 
@@ -17,14 +17,14 @@ class Board(models.Model):
 
     def __str__(self):
         return str(self.id)
-
+    
     class Meta:
         unique_together = ('colorCode', 'brand', 'material')
         ordering = ['id', 'brand', 'material', 'colorCode']
 
 class StockBoard(models.Model):
     id = models.AutoField(primary_key=True)
-    companyName = models.ForeignKey(CompanyEmployer, on_delete=models.CASCADE)
+    companyName = models.ForeignKey(Company, on_delete=models.CASCADE)
     idBoard = models.ForeignKey(Board, on_delete=models.CASCADE)
     noPieces = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
@@ -53,7 +53,7 @@ class Edge(models.Model):
 
 class StockEdge(models.Model):
     id = models.AutoField(primary_key=True)
-    companyName = models.ForeignKey(CompanyEmployer, on_delete=models.CASCADE)
+    companyName = models.ForeignKey(Company, on_delete=models.CASCADE)
     idEdge = models.ForeignKey(Edge, on_delete=models.CASCADE)
     noMeters = models.IntegerField(default=0)
     price = models.IntegerField(default=0)

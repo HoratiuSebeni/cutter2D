@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Company, CompanyEmployer
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('user', 'company', 'companyType', 'accountPermisions')
+    list_display = ('company', 'companyType')
 
 class CompanyEmployerAdmin(admin.ModelAdmin):
     list_display = ('user', 'company', 'accountPermisions')
