@@ -1,11 +1,20 @@
 {% extends 'main.html' %}
 
-{% block content %}
-<br>
-<button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newBoard'">newBoard</button>
-<button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newStockBoard'">newStockBoard</button>
-<br>
-<br>
-<button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newEdge'">newEdge</button>
-<button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newStockEdge'">newStockEdge</button>
+{% block titleBar %}
+<div>
+    Title
+</div>
+{% endblock %}
+
+
+{% block contentBar %}
+<div>
+    <button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newBoard'">newBoard</button>
+    <br>
+    <button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newStockBoard'">newStockBoard</button>
+    <br>
+    <button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newEdge'">newEdge</button>
+    <br>
+    <button type="button" class="btn btn-primary btn-sm" onclick="location.href='home/newStockEdge'">newStockEdge</button>
+</div>
 {% endblock %}

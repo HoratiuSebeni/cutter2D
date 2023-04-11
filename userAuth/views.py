@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
 from .models import Company, CompanyEmployer
+from .forms import CompanyForm, CompanyEmployerForm, UserForm,PasswordForm
 
 
 def start(request):
@@ -46,8 +48,30 @@ def registerPage(request):
             return redirect (homePage)
         except:
             messages.error(request, 'Can not register the new company. The company maybe already exist')
-    return render(request, 'userAuth/register.html')
+    
+    context = {}
+    return render(request, 'userAuth/register.html', context)
 
 @login_required(login_url=loginPage)
 def homePage(request):
     return render(request, 'userAuth/home.html')
+
+@login_required(login_url=loginPage)
+def myAccount(request):
+    companyEmployer = CompanyEmployer.objects.get(user=request.user)
+    company = Company.objects.get(company=companyEmployer.company)
+    context = {'companyEmployer' : companyEmployer, 'company' : company}
+    return render(request, 'userAuth/account.html', context)
+
+def changePassword(request):
+    response = "Can not modify your password"
+    if request.method == 'POST':
+        try:
+            user = request.user
+            password = request.POST.get('password')
+            user.set_password(password)
+            user.save()
+            response = "Your password was changed"
+        except:
+            response = "Something went wrong"
+    return JsonResponse(response, safe=False)

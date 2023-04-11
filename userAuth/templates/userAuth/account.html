@@ -1,0 +1,104 @@
+{% extends 'main.html' %}
+
+{% block titleBar %}
+<h5>
+    My Account
+</h5>
+{% endblock %}
+
+{% block contentBar %}
+<div class="d-grid gap-2 mx-auto">
+    <button type="button" id="changePass" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changePass')">Change password</button>
+    <button type="button" id="changeName" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changeName')">Change name</button>
+    <button type="button" id="changeEmail" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changeEmail')">Change email adress</button>
+    <button type="button" id="changeCompany" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changeCompany')">Change company details</button>
+    <button type="button" id="changePermisions" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changePermisions')">Change employer permisions</button>
+    <button type="button" id="addEmployer" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('addEmployer')">Add new employer</button>
+    <button type="button" id="deleteEmployer" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('deleteEmployer')">Delete employer</button>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <div id="accountContent" name="content">
+        <h5>Hey {{companyEmployer.name}} {{companyEmployer.middleName}}</h5>
+        <div class="card">
+            <div class="card-header">
+                Personal info
+            </div>
+            <div class="card-body">
+                <p>Name: {{companyEmployer.name}} {{companyEmployer.middleName}}</p>
+                <p>You are employed at: {{companyEmployer.company}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Company info
+            </div>
+            <div class="card-body">
+                <p>Country: {{company.country}}</p>
+                <p>Adress: {{company.adress}}</p>
+                <p>Phone number: {{company.phone}}</p>
+                <p>The type of the company: {{company.companyType}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Permisions
+            </div>
+            <div class="card-body">
+                <p>Your permision class: {{companyEmployer.accountPermisions}}</p>
+            </div>
+        </div>
+    </div>
+    <div id="changePassContent" name="content" style="display: none;">
+        <div class="card">
+            <div class="card-header">
+                Change your account password
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="newPass">New Password:</label>
+                    <input type="password" id="pass" name="newPass" placeholder="minimum 6 characters" size="25" minlength="6" required>
+                    <br>
+                    <label for="confirmPass">Confirm Password:</label>
+                    <input type="password" id="equalPass" name="confirmPass" placeholder="minimum 6 characters" size="25" minlength="6" required>
+                    <button type="button" name="changePassword" class="btn btn-primary btn-sm" onclick="verifyPass()">Change Pass</button>
+                </form>
+        </div>
+    </div>
+    <div id="changeNameContent" name="content" style="display: none;">
+        <div class="card">
+            <div class="card-header">
+                Change your name
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="newName" size="25" required>
+                    <br>
+                    <label for="middleName">Confirm Password:</label>
+                    <input type="text" id="middleName" name="confirmPass" size="25" required>
+                    <input type="submit" name="changeName" class="btn btn-primary btn-sm" value="Change Name" onclick="changeName()">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="changeEmailContent" name="content" style="display: none;">
+        form to chante email
+    </div>
+    <div id="changeCompanyContent" name="content" style="display: none;">
+        form to change comapny details
+    </div>
+    <div id="changePermisionsContent" name="content" style="display: none;">
+        form to change permisions of a employer
+    </div>
+    <div id="addEmployerContent" name="content" style="display: none;">
+        form to add an employer to the company
+    </div>
+    <div id="deleteEmployerContent" name="content" style="display: none;">
+        form to delete one employer from the company
+    </div>
+{% endblock %}

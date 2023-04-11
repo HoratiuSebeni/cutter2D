@@ -1,20 +1,12 @@
 from django.contrib import admin
-from .models import Board, StockBoard, Edge, StockEdge
+from .models import Material, Stock
 # Register your models here.
 
-class BoardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'brand', 'material', 'colorCode')
+class MaterialAdmin(admin.ModelAdmin):
+    list_display = ('id', 'brand', 'material', 'colorCode', 'length', 'width')
 
-class StockBoardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'companyName', 'idBoard', 'noPieces')
+class StockAdmin(admin.ModelAdmin):
+    list_display = ('id', 'companyName', 'idMaterial', 'noPieces')
 
-class EdgeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'brand', 'colorCode', 'length', 'width')
-
-class StockEdgeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'companyName', 'idEdge', 'noMeters')
-
-admin.site.register(Board, BoardAdmin)
-admin.site.register(StockBoard, StockBoardAdmin)
-admin.site.register(Edge, EdgeAdmin)
-admin.site.register(StockEdge, StockEdgeAdmin) 
+admin.site.register(Material, MaterialAdmin)
+admin.site.register(Stock, StockAdmin)
