@@ -75,3 +75,49 @@ def changePassword(request):
         except:
             response = "Something went wrong"
     return JsonResponse(response, safe=False)
+
+def updateName(request):
+    response = "Can not change your name"
+    if request.method == 'POST':
+        try:
+            name = request.POST.get('name')
+            middleName = request.POST.get('middleName')
+            CompanyEmployer.objects.filter(user=request.user).update(name=name, middleName=middleName)
+            response = "Your name was changed"
+        except:
+            response = "Something went wrong, please try again"
+    return JsonResponse(response, safe=False)
+
+def updateCompanyDetails(request):
+    response = "Can not modify the company details"
+    if request.method == 'POST':
+        try:
+            country = request.POST.get('country')
+            city = request.POST.get('city')
+            adress = request.POST.get('adress')
+            phone = request.POST.get('phone')
+            company = CompanyEmployer.objects.get(user=request.user).company
+            Company.objects.filter(company=company).update(country=country, city=city, adress=adress, phone=phone)
+            response = "The company details was modified successfully"
+        except:
+            response = "Something went wrong, please try again"
+    return JsonResponse(response, safe=False)
+
+def createEmployer(request):
+    response = "Can not create new user for your company"
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        username = email
+        password = request.POST.get('password')
+        name = request.POST.get('name')
+        middleName = request.POST.get('middleName')
+        permisions = request.POST.get('permisions')
+        try: 
+            newUser = User.objects.create_user(username, email, password)
+            newUser.save()
+            company = CompanyEmployer.objects.get(user=request.user).company
+            CompanyEmployer.objects.create(user=newUser, company=Company.objects.get(company=company), name=name, middleName=middleName, accountPermisions=permisions)
+            response = "The new user was created successfully"
+        except:
+            response = "Something went wrong, please try again"
+    return JsonResponse(response, safe=False)

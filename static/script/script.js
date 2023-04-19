@@ -43,3 +43,84 @@ function verifyPass() {
     document.getElementById('pass').value = "";
     document.getElementById('equalPass').value = "";
 }
+
+function changeName() {
+    let name = document.getElementById('name').value;
+    let middleName = document.getElementById('middleName').value;
+    csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    $.ajax({
+        type: 'POST',
+        url: 'updateName',
+        data: {csrfmiddlewaretoken: csrfToken,
+            name: name,
+            middleName: middleName
+        },
+        success: function(response){
+            alert(response);
+        },
+        error: function(response){
+            alert(response);
+        }
+    });
+    document.getElementById('name').value = "";
+    document.getElementById('middleName').value = "";
+}
+
+function changeCompanyDetails() {
+    let country = document.getElementById('newCountry').value;
+    let city = document.getElementById('newCity').value;
+    let adress = document.getElementById('newAdress').value;
+    let phone = document.getElementById('newPhone').value;
+    csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    $.ajax({
+        type: 'POST',
+        url: 'updateCompanyDetails',
+        data: {csrfmiddlewaretoken: csrfToken,
+            country: country,
+            city: city,
+            adress: adress,
+            phone: phone
+        },
+        success: function(response){
+            alert(response);
+        },
+        error: function(response){
+            alert(response);
+        }
+    });
+    document.getElementById('newCountry').value = "";
+    document.getElementById('newCity').value = "";
+    document.getElementById('newAdress').value = "";
+    document.getElementById('newPhone').value = "";
+}
+
+function addEmployer() {
+    let email = document.getElementById('employerEmail').value;
+    let password = document.getElementById('employerPassword').value;
+    let name = document.getElementById('employerName').value;
+    let middleName = document.getElementById('employerMiddleName').value;
+    let permisions = document.getElementById('employerPermisions').value;
+    csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    $.ajax({
+        type: 'POST',
+        url: 'createEmployer',
+        data: {csrfmiddlewaretoken: csrfToken,
+            email: email,
+            password: password,
+            name: name,
+            middleName: middleName,
+            permisions: permisions
+        },
+        success: function(response){
+            alert(response);
+        },
+        error: function(response){
+            alert(response);
+        }
+    });
+    document.getElementById('employerEmail').value = "";
+    document.getElementById('employerPassword').value = "";
+    document.getElementById('employerName').value = "";
+    document.getElementById('employerMiddleName').value = "";
+    document.getElementById('employerPermisions').value = "";
+}

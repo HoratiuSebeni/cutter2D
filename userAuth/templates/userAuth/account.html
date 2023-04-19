@@ -10,7 +10,6 @@
 <div class="d-grid gap-2 mx-auto">
     <button type="button" id="changePass" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changePass')">Change password</button>
     <button type="button" id="changeName" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changeName')">Change name</button>
-    <button type="button" id="changeEmail" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changeEmail')">Change email adress</button>
     <button type="button" id="changeCompany" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changeCompany')">Change company details</button>
     <button type="button" id="changePermisions" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('changePermisions')">Change employer permisions</button>
     <button type="button" id="addEmployer" name="contentBarButton" class="btn btn-outline-info btn-sm" onclick="renderContent('addEmployer')">Add new employer</button>
@@ -37,6 +36,7 @@
             </div>
             <div class="card-body">
                 <p>Country: {{company.country}}</p>
+                <p>City: {{company.city}}</p>
                 <p>Adress: {{company.adress}}</p>
                 <p>Phone number: {{company.phone}}</p>
                 <p>The type of the company: {{company.companyType}}</p>
@@ -66,6 +66,7 @@
                     <input type="password" id="equalPass" name="confirmPass" placeholder="minimum 6 characters" size="25" minlength="6" required>
                     <button type="button" name="changePassword" class="btn btn-primary btn-sm" onclick="verifyPass()">Change Pass</button>
                 </form>
+            </div>
         </div>
     </div>
     <div id="changeNameContent" name="content" style="display: none;">
@@ -79,24 +80,66 @@
                     <label for="name">Name</label>
                     <input type="text" id="name" name="newName" size="25" required>
                     <br>
-                    <label for="middleName">Confirm Password:</label>
-                    <input type="text" id="middleName" name="confirmPass" size="25" required>
-                    <input type="submit" name="changeName" class="btn btn-primary btn-sm" value="Change Name" onclick="changeName()">
+                    <label for="middleName">Middle name</label>
+                    <input type="text" id="middleName" name="middleName" size="25" required>
+                    <button type="button" name="updateName" class="btn btn-primary btn-sm" onclick="changeName()">Change name</button>
                 </form>
             </div>
         </div>
     </div>
-    <div id="changeEmailContent" name="content" style="display: none;">
-        form to chante email
-    </div>
     <div id="changeCompanyContent" name="content" style="display: none;">
-        form to change comapny details
+        <div class="card">
+            <div class="card-header">
+                Change company details
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <label for="country">Country</label>
+                    <input type="text" id="newCountry" name="country" size="25" required>
+                    <br>
+                    <label for="city">City</label>
+                    <input type="text" id="newCity" name="city" size="25" required>
+                    <br>
+                    <label for="adress">Adress</label>
+                    <input type="text" id="newAdress" name="adress" size="25" required>
+                    <br>
+                    <label for="phone">Phone number</label>
+                    <input type="tel" id="newPhone" name="phone" size="25" required>
+                    <button type="button" name="updateDetails" class="btn btn-primary btn-sm" onclick="changeCompanyDetails()">Change company details</button>
+                </form>
+            </div>
+        </div>
     </div>
     <div id="changePermisionsContent" name="content" style="display: none;">
         form to change permisions of a employer
     </div>
     <div id="addEmployerContent" name="content" style="display: none;">
-        form to add an employer to the company
+        <div class="card">
+            <div class="card-header">
+                Change company details
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <label for="email">Employer email</label>
+                    <input type="email" id="employerEmail" name="email" size="25" required>
+                    <br>
+                    <label for="password">Employer password</label>
+                    <input type="password" id="employerPassword" name="password" size="25" required>
+                    <br>
+                    <label for="name">Employer name</label>
+                    <input type="text" id="employerName" name="name" size="25" required>
+                    <br>
+                    <label for="middleName">Employer middle name</label>
+                    <input type="text" id="employerMiddleName" name="middleName" size="25" required>
+                    <br>
+                    <label for="permisions">Employer permisions</label>
+                    <input type="text" id="employerPermisions" name="permisions" size="25" required>
+                    <button type="button" name="updateDetails" class="btn btn-primary btn-sm" onclick="addEmployer()">Add employer</button>
+                </form>
+            </div>
+        </div>
     </div>
     <div id="deleteEmployerContent" name="content" style="display: none;">
         form to delete one employer from the company
